@@ -9,7 +9,7 @@ import java.util.List;
  * @author: e-weichaozheng
  * @date: 2021-03-16
  */
-public interface PermissionOwner {
+public interface PermissionOwner extends IdentityOwner {
 
     public List<String> getPerms();
 

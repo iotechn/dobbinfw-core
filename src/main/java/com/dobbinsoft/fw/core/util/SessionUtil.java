@@ -2,16 +2,19 @@ package com.dobbinsoft.fw.core.util;
 
 
 
+import com.dobbinsoft.fw.core.entiy.inter.IdentityOwner;
 import com.dobbinsoft.fw.core.entiy.inter.PermissionOwner;
 import com.dobbinsoft.fw.core.exception.ServiceException;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * Created by rize on 2019/2/27.
  * Edit by rize on 2021/3/16.
  */
-public class SessionUtil<U, A extends PermissionOwner> {
+public class SessionUtil<U extends IdentityOwner, A extends PermissionOwner> {
 
     private ThreadLocal<U> userLocal = new ThreadLocal<U>();
 
@@ -31,6 +34,18 @@ public class SessionUtil<U, A extends PermissionOwner> {
 
     public A getAdmin() {
         return adminLocal.get();
+    }
+
+    public Class<U> getUserClass() {
+        Type type = this.getClass().getGenericSuperclass();
+        Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
+        return (Class<U>) trueType;
+    }
+
+    public Class<A> getAdminClass() {
+        Type type = this.getClass().getGenericSuperclass();
+        Type trueType = ((ParameterizedType) type).getActualTypeArguments()[1];
+        return (Class<A>) trueType;
     }
 
     public boolean hasPerm(String permission) throws ServiceException {
