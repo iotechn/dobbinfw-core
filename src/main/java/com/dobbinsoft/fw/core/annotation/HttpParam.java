@@ -17,4 +17,5 @@ public @interface HttpParam {
     HttpParamType type() default HttpParamType.COMMON;
     String description() default "";
     String valueDef() default "";
+    Class arrayClass() default Object.class;
 }

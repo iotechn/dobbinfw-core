@@ -13,6 +13,15 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Documented
 public @interface Range {
+
     long min() default Long.MIN_VALUE;
+
     long max() default Long.MAX_VALUE;
+
+    String message() default "";
+
+    boolean reqScope() default true;
+
+    boolean respScope() default false;
+
 }

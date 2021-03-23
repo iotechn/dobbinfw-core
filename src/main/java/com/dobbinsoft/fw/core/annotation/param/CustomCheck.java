@@ -20,4 +20,8 @@ public @interface CustomCheck {
      */
     Class beanClass();
 
+    boolean reqScope() default true;
+
+    boolean respScope() default false;
+
 }

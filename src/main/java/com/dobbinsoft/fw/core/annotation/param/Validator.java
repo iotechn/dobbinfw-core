@@ -1,5 +1,7 @@
 package com.dobbinsoft.fw.core.annotation.param;
 
+import com.dobbinsoft.fw.core.exception.ServiceException;
+
 /**
  * ClassName: Validator
  * Description: 校验器
@@ -9,6 +11,6 @@ package com.dobbinsoft.fw.core.annotation.param;
  */
 public interface Validator<T> {
 
-    public boolean check(T param);
+    public boolean check(T param) throws ServiceException;
 
 }

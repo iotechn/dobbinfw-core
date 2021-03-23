@@ -13,4 +13,11 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Documented
 public @interface NotNull {
+
+    String message() default "";
+
+    boolean reqScope() default true;
+
+    boolean respScope() default false;
+
 }

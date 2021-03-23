@@ -1,7 +1,6 @@
 package com.dobbinsoft.fw.core;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class Const {
 
-    public static final List<Class> IGNORE_PARAM_LIST = new ArrayList<Class>();
+    public static final Set<Class> IGNORE_PARAM_LIST = new HashSet<Class>();
 
     static {
         IGNORE_PARAM_LIST.add(Integer.class);
