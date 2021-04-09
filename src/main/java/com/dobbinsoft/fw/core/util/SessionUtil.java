@@ -20,6 +20,15 @@ public class SessionUtil<U extends IdentityOwner, A extends PermissionOwner> {
 
     private ThreadLocal<A> adminLocal = new ThreadLocal<A>();
 
+    private Class<U> userClass;
+
+    private Class<A> adminClass;
+
+    public SessionUtil(Class<U> userClass, Class<A> adminClass) {
+        this.userClass = userClass;
+        this.adminClass = adminClass;
+    }
+
     public void setUser(U userDTO) {
         userLocal.set(userDTO);
     }
@@ -37,15 +46,11 @@ public class SessionUtil<U extends IdentityOwner, A extends PermissionOwner> {
     }
 
     public Class<U> getUserClass() {
-        Type type = this.getClass().getGenericSuperclass();
-        Type trueType = ((ParameterizedType) type).getActualTypeArguments()[0];
-        return (Class<U>) trueType;
+        return this.userClass;
     }
 
     public Class<A> getAdminClass() {
-        Type type = this.getClass().getGenericSuperclass();
-        Type trueType = ((ParameterizedType) type).getActualTypeArguments()[1];
-        return (Class<A>) trueType;
+        return this.adminClass;
     }
 
     public boolean hasPerm(String permission) throws ServiceException {
