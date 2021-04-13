@@ -17,6 +17,9 @@ import java.lang.annotation.Target;
 public @interface HttpMethod {
     String description();
     ResultType type() default ResultType.COMMONS;
+    RateLimitType rateLimit() default RateLimitType.NONE;
+    int rateWindow() default 60;
+    int rate() default 1;
     String retName() default "";
     int maxAge() default -1;
     String permission() default "";
