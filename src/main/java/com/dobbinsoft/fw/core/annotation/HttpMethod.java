@@ -25,4 +25,5 @@ public @interface HttpMethod {
     String permission() default "";
     String permissionParentName() default "";
     String permissionName() default "";
+    boolean openPlatform() default false;
 }

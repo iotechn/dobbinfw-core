@@ -14,6 +14,17 @@ public class Const {
     public static final Set<Class> IGNORE_PARAM_LIST = new HashSet<Class>();
 
     static {
+        IGNORE_PARAM_LIST.add(boolean.class);
+        IGNORE_PARAM_LIST.add(byte.class);
+        IGNORE_PARAM_LIST.add(char.class);
+        IGNORE_PARAM_LIST.add(short.class);
+        IGNORE_PARAM_LIST.add(int.class);
+        IGNORE_PARAM_LIST.add(long.class);
+        IGNORE_PARAM_LIST.add(float.class);
+        IGNORE_PARAM_LIST.add(double.class);
+        IGNORE_PARAM_LIST.add(Byte.class);
+        IGNORE_PARAM_LIST.add(Character.class);
+        IGNORE_PARAM_LIST.add(Short.class);
         IGNORE_PARAM_LIST.add(Integer.class);
         IGNORE_PARAM_LIST.add(Long.class);
         IGNORE_PARAM_LIST.add(String.class);
