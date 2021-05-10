@@ -1,5 +1,7 @@
 package com.dobbinsoft.fw.core.enums;
 
+import java.io.Serializable;
+
 /**
  * ClassName: EmptyEnums
  * Description: TODO
@@ -7,10 +9,10 @@ package com.dobbinsoft.fw.core.enums;
  * @author: e-weichaozheng
  * @date: 2021-03-19
  */
-public enum EmptyEnums implements BaseEnums {
+public enum EmptyEnums implements BaseEnums<Integer> {
     ;
 
-    public int getCode() {
+    public Integer getCode() {
         return 0;
     }
 
