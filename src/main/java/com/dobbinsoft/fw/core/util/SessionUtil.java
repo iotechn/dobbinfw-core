@@ -14,7 +14,7 @@ import java.util.List;
  * Created by rize on 2019/2/27.
  * Edit by rize on 2021/3/16.
  */
-public class SessionUtil<U extends IdentityOwner, A extends PermissionOwner> {
+public class SessionUtil<U extends IdentityOwner, A extends PermissionOwner> implements ISessionUtil<U, A> {
 
     private ThreadLocal<U> userLocal = new ThreadLocal<U>();
 

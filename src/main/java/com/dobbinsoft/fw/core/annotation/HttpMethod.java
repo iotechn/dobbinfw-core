@@ -26,4 +26,9 @@ public @interface HttpMethod {
     String permissionParentName() default "";
     String permissionName() default "";
     boolean openPlatform() default false;
+    /**
+     * 从网关上构建一个实例
+     * @return
+     */
+    Class loadBean() default void.class;
 }

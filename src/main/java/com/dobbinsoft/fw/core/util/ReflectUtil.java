@@ -3,6 +3,8 @@ package com.dobbinsoft.fw.core.util;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
@@ -88,21 +90,8 @@ public class ReflectUtil {
                                 continue;
                             }
                         }
-                        try {
-                            Class<?> klass = Class.forName(className);
-                            if (klass.isAnnotation()
-                                    || klass.isEnum()
-                                    || klass.isPrimitive()) {
-                                continue;
-                            }
-                            if (isInterface && !klass.isInterface()) {
-                                continue;
-                            } else if (!isInterface && klass.isInterface()) {
-                                continue;
-                            }
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                            throw new RuntimeException("未找到类：" + className);
+                        if (checkClassType(isInterface, className)) {
+                            continue;
                         }
                         InputStream inputStream = null;
                         try {
@@ -120,12 +109,79 @@ public class ReflectUtil {
                             }
                         }
                     }
-                }else {
+                } else if (url.getProtocol().equals("file")) {
+                    // 文件系统，这是在开发的时候会用到
+                    // file:/D:/develop/workspace/ideawork/unierp/unierp-data/target/classes/com/dobbinsoft/unierp/data/dto
+                    Map<String, File> classNameFileMap = getClassNameFileMap(new HashMap<>(), new File(url.getFile()), basePackage, subPackage);
+                    for (String className : classNameFileMap.keySet()) {
+                        if (checkClassType(isInterface, className)) {
+                            continue;
+                        }
+                        InputStream inputStream = null;
+                        try {
+                            File file = classNameFileMap.get(className);
+                            inputStream = new FileInputStream(file);
+                            byte[] bytes = IoUtil.readBytes(inputStream);
+                            map.put(className, bytes);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (inputStream != null) {
+                                inputStream.close();
+                            }
+                        }
+                    }
+                } else {
                     throw new RuntimeException("不支持本包对象，请不要将接口和实体放入启动器中");
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return map;
+    }
+
+    private static boolean checkClassType(boolean isInterface, String className) {
+        try {
+            Class<?> klass = Class.forName(className);
+            if (klass.isAnnotation()
+                    || klass.isEnum()
+                    || klass.isPrimitive()) {
+                return true;
+            }
+            if (isInterface && !klass.isInterface()) {
+                return true;
+            } else if (!isInterface && klass.isInterface()) {
+                return true;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException("未找到类：" + className);
+        }
+        return false;
+    }
+
+    /**
+     * 递归获取baseDir下的类与文件映射
+     * @param map
+     * @param baseDir
+     * @return
+     */
+    private static Map<String, File> getClassNameFileMap(Map<String, File> map, File baseDir, String basePackage, boolean subPackage) {
+        if (baseDir == null || !baseDir.isDirectory()) {
+            return map;
+        }
+        File[] files = baseDir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory() && subPackage) {
+                // 不这么写 true idea 报黄，看着胀眼睛
+                getClassNameFileMap(map, file, basePackage, true);
+            } else if (file.getName().endsWith("class")) {
+                // 兼容 Windows
+                String rawPackage = baseDir.toString().replace("\\", ".").replace("/", ".");
+                String className = rawPackage.substring(rawPackage.indexOf(basePackage)) + "." + file.getName().replace(".class", "");
+                map.put(className, file);
+            }
         }
         return map;
     }
