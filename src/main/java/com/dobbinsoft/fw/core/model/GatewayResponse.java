@@ -16,3 +16,4 @@ public class GatewayResponse<T> {
     private T data;
     private long timestamp;
 }
+

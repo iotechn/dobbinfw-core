@@ -17,6 +17,24 @@ public interface BaseEnums<T extends Serializable> {
 
     public String getMsg();
 
+    public static <T extends Serializable> BaseEnums getByCode(T t, Class<? extends BaseEnums<T>> clazz) {
+        BaseEnums<T>[] enumConstants = clazz.getEnumConstants();
+        for (BaseEnums baseEnums : enumConstants) {
+            if (baseEnums.getCode().equals(t)) {
+                return baseEnums;
+            }
+        }
+        return null;
+    }
+
+    public static <T extends Serializable> String getMsgByCode(T t, Class<? extends BaseEnums<T>> clazz) {
+        BaseEnums baseEnums = getByCode(t, clazz);
+        if (baseEnums == null) {
+            return null;
+        }
+        return baseEnums.getMsg();
+    }
+
     /**
      * 获取前端格式化需要的MAP
      * @return
