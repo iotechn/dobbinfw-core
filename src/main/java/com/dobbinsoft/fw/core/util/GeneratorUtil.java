@@ -14,6 +14,10 @@ public class GeneratorUtil {
 
     private static final SimpleDateFormat ORDER_ID_FORMAT = new SimpleDateFormat("yyyyMMHHmmss");
 
+    public static final String genSalt() {
+        return genUUId().substring(0, 7);
+    }
+
     public static String genSixVerifyCode() {
         String time = System.nanoTime() + "";
         return time.substring(time.length() - 6);

@@ -17,6 +17,17 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- 配置编译时保留参数名 -->
+                <configuration>
+                    <debuglevel>lines,vars,source</debuglevel>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -70,5 +81,6 @@
 			<url>https://packages.aliyun.com/maven/repository/2084582-snapshot-Vrq4iK/</url>
 		</repository>
 	</distributionManagement>
+
 
 </project>
