@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -184,6 +186,38 @@ public class ReflectUtil {
             }
         }
         return map;
+    }
+
+
+    /**
+     * 清理掉对象的空串属性
+     * @param object
+     */
+    public static void clearEmptyString(Object object) {
+        try {
+            Class<?> clazz = object.getClass();
+            Field[] fields = clazz.getFields();
+            for (Field field : fields) {
+                String getter = getMethodName(field.getName(), "get");
+                Method getterMethod = clazz.getMethod(getter);
+                if (getterMethod != null) {
+                    Object res = getterMethod.invoke(object);
+                    if (res != null && res instanceof String) {
+                        // 若是返回String
+                        if (!"".equals(res)) {
+                            //设置为空
+                            String setter = getMethodName(field.getName(), "set");
+                            Method setterMethod = clazz.getMethod(setter);
+                            if (setterMethod != null) {
+                                setterMethod.invoke(object, null);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
