@@ -23,6 +23,10 @@ public abstract class ServiceException extends Exception implements Serializable
         this.code = code;
     }
 
+    public Object getAttach() {
+        return attach;
+    }
+
     public ServiceException() {
     }
 
