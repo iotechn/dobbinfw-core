@@ -14,7 +14,6 @@ public enum HttpParamType {
     USER_ID,
     ADMIN_ID,
     IP,
-    MONEY,
     FILE
     ;
 
