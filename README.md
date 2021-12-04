@@ -1,37 +1,40 @@
-### 3 分钟了解如何进入开发
+## Dobbin Framework Logo
 
-欢迎使用云效 Codeup，通过阅读以下内容，你可以快速熟悉 Codeup ，并立即开始今天的工作。
+#### 一、项目背景
 
-### 提交**文件**
+> 为了快速落地项目、快速搭建脚手架，dobbinsoft开发一套基于SpringBoot MyBatis的框架，并手搓了如参数校验、文档生成、限流、鉴权等等常用功能。core包中包括工具类、注解、模型等。
 
-首先，你需要了解在 Codeup 中如何提交代码文件，跟着文档「[__提交第一行代码__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e7546fd9001aee81fd)」一起操作试试看吧。
+#### 二、快速开始
 
-### 开启扫描
+##### 2.1. 下载代码
 
-开发过程中，为了更好的管理你的代码资产，Codeup 内置了「[__代码规约扫描__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e8546fd9001aee821c)」和「[__敏感信息检测__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e8546fd9001aee821b)」服务，你可以在代码库设置-集成与服务中一键开启，开启后提交或合并请求的变更将自动触发扫描，并及时提供结果反馈。
+您可以在国内开源社区Gitee下载（推荐）：https://gitee.com/iotechn/dobbinfw-core
 
-![](https://img.alicdn.com/tfs/TB1nRDatoz1gK0jSZLeXXb9kVXa-1122-380.png "")
+您可以在国际开源社区Github下载：https://github.com/iotechn/dobbinfw-core
 
-![](https://img.alicdn.com/tfs/TB1PrPatXY7gK0jSZKzXXaikpXa-1122-709.png "")
+##### 2.2. maven引入
 
-### 代码评审
+请确定您已经将 JAVA_HOME 配置，并将mvn命令配置到PATH中，若出现找不到命令，或找不到JAVA_HOME，[请参考此文档](https://blog.csdn.net/weixin_44548718/article/details/108635409)
 
-功能开发完毕后，通常你需要发起「[__代码合并和评审__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e8546fd9001aee8216)」，Codeup 支持多人协作的代码评审服务，你可以通过「[__保护分支__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e9546fd9001aee8221)」策略及「[__合并请求设置__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e9546fd9001aee8224)」对合并过程进行流程化管控，同时提供 WebIDE 在线代码评审及冲突解决能力，让你的评审过程更加流畅。
+在项目根目录，打开命令行。并执行 ：
 
-![](https://img.alicdn.com/tfs/TB1XHrctkP2gK0jSZPxXXacQpXa-1432-887.png "")
+```shell
+mvn install -Dmaven.test.skip=true
+```
 
-![](https://img.alicdn.com/tfs/TB1V3fctoY1gK0jSZFMXXaWcVXa-1432-600.png "")
+引入maven坐标到工程pom.xml文件中。
 
-### 编写文档
+```xml
+<groupId>com.dobbinsoft</groupId>
+<artifactId>fw-core</artifactId>
+<version>1.0-SNAPSHOT</version>
+```
 
-项目推进过程中，你的经验和感悟可以直接记录到 Codeup 代码库的「[__文档__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e8546fd9001aee8213)」内，让智慧可视化。
+#### 三、常见问题
 
-![](https://img.alicdn.com/tfs/TB1BN2ateT2gK0jSZFvXXXnFXXa-1432-700.png "")
+##### 3.1. 为何分离core包？
 
-### 成员协作
+部分项目，需要拆分微服务，这类项目需要将接口暴露给其他微服务系统，通常提供一个api包，api包不需要引入过重依赖，使用此框架则只需要引入core包即可。
 
-是时候邀请成员一起编写卓越的代码工程了，请点击右上角「成员」邀请你的小伙伴开始协作吧！
-
-### 更多
-
-Git 使用教学、高级功能指引等更多说明，参见[__Codeup帮助文档__](https://thoughts.aliyun.com/sharespace/5e8c37eb546fd9001aee8242/docs/5e8c37e6546fd9001aee81fa)。
+#### 四、贡献 & 社区
+您可以直接在仓库中发布Pull Request。本项目欢迎所有开发者一起维护，并永久开源。
